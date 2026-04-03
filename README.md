@@ -11,7 +11,7 @@ This project is a complete proxy rental platform that allows users to rent SOCKS
 - **Panel** (`panel/`): The main web application providing the user interface for browsing, renting, and managing proxy servers
 - **Background Billing** (`bg_charger/`): A Python-based hourly billing script that runs as a cronjob to automatically charge users for active rentals
 - **Database**: PostgreSQL database that tracks user accounts, server inventory, rentals, transactions, and billing history. Use DBeaver Community Edition (DBeaver-CE) to manage and insert new servers
-- **Proxy Servers**: Each proxy server runs Dante (SOCKS5 server) alongside a custom `micro-service` that the main panel communicates with via a secret key for server management and authentication
+- **Proxy Servers**: Each proxy server runs Dante (SOCKS5 server) alongside a custom `micro-service` - *controller* that the main panel communicates with via a secret key for server management and authentication
 - **Payment Systems**: Two payment gateways are already integrated for processing user top-ups
 
 The entire system is fully automated: users create anonymous accounts instantly, rent servers with immediate activation, and are billed hourly through the background cronjob. Proxy details and credentials are delivered immediately upon rental.
