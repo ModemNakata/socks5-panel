@@ -1,0 +1,14 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_pcg
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    network_mode: host
+
+# purpose of this nginx contianer with self signed certificate is to test allow secure cookie in the app on local host
+# domain works with dnsmasq or /etc/hosts 

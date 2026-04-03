@@ -1,0 +1,2 @@
+# Run exactly once per hour (at minute 0)
+0 * * * * cd /home/nmodem/Desktop/project/pcg/bg_charger && /usr/bin/python3 hourly_billing.py >> /var/log/hourly_billing.log 2>&1

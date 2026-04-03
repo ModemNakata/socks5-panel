@@ -1,0 +1,10 @@
+# Python dependencies for PCG project scripts
+
+# Database connectivity
+psycopg2-binary>=2.9.9
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# HTTP requests (for controller manage_user.py)
+requests>=2.31.0

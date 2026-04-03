@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifying Payment...</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0a0e27 100%);
+            min-height: 100vh;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .message.warning {
+            border-color: var(--warning);
+        }
+
+        .message.success {
+            border-color: var(--success);
+        }
+
+        .message.danger {
+            border-color: #ef4444;
+        }
+
+        .notice {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .notice a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .notice a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loading-view">
+            <div class="spinner"></div>
+            <h2>Verifying Payment</h2>
+            <p>Please wait while we confirm your payment...</p>
+            <div id="timeout-notice" class="hidden" style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                <p>Taking longer than usual. If payment isn't confirmed, <a href="/support" style="color: var(--primary); text-decoration: none;">contact support</a>.</p>
+            </div>
+        </div>
+
+        <div id="not-owner-view" class="hidden">
+            <h2>Thank you!</h2>
+            <!-- <div class="message warning"> -->
+            <div>
+                <p>Your payment is complete. Please switch back to the device where you initiated it to see your updated balance.</p>
+            </div>
+        </div>
+
+        <div id="completed-view" class="hidden">
+            <div class="spinner" style="border-top-color: var(--success);"></div>
+            <h2>Payment Confirmed!</h2>
+            <p>Your balance has been updated. Redirecting...</p>
+        </div>
+
+        <div id="timeout-view" class="hidden">
+            <h2>Verification Timeout</h2>
+            <div class="message danger">
+                <p>We're taking longer than expected to verify your payment status. This can happen if the payment provider is experiencing delays.</p>
+                <p style="margin-top: 0.5rem;"><strong>If you're experiencing issues or Platega hasn't confirmed your payment, please contact our support team.</strong></p>
+            </div>
+            <div class="btn-group">
+                <a href="/support" class="btn">Contact Support</a>
+                <button onclick="location.reload()" class="btn secondary">Try Again</button>
+            </div>
+        </div>
+
+        <div id="error-view" class="hidden">
+            <h2>Payment Status Unknown</h2>
+            <p>We couldn't verify the payment status.</p>
+            <a href="/d" class="btn">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        const transactionId = "{{ transaction_internal_id }}";
+        const isOwner = {{ is_owner }};
+        const VERIFICATION_TIMEOUT = 30000; // 30 seconds
+
+        const loadingView = document.getElementById('loading-view');
+        const notOwnerView = document.getElementById('not-owner-view');
+        const completedView = document.getElementById('completed-view');
+        const timeoutView = document.getElementById('timeout-view');
+        const errorView = document.getElementById('error-view');
+
+        let timeoutNoticeShown = false;
+        let verificationStartTime;
+
+        if (!isOwner) {
+            // User opened from different device/browser (e.g., phone banking app)
+            // Show message without spinner, don't poll
+            loadingView.classList.add('hidden');
+            notOwnerView.classList.remove('hidden');
+        } else {
+            verificationStartTime = Date.now();
+
+            // Show timeout notice after 30 seconds, but keep polling
+            const timeoutNoticeTimer = setTimeout(() => {
+                timeoutNoticeShown = true;
+                document.getElementById('timeout-notice').classList.remove('hidden');
+            }, VERIFICATION_TIMEOUT);
+
+            // Poll for payment status
+            async function checkStatus() {
+                try {
+                    const response = await fetch(`/api/payment/verify_platega/status/${transactionId}`);
+                    const data = await response.json();
+
+                    if (data.status === 'completed') {
+                        loadingView.classList.add('hidden');
+                        timeoutView.classList.add('hidden');
+                        completedView.classList.remove('hidden');
+                        // Auto-redirect after 1 second
+                        setTimeout(() => {
+                            window.location.href = '/d';
+                        }, 1000);
+                    } else if (data.status === 'canceled') {
+                        loadingView.classList.add('hidden');
+                        timeoutView.classList.add('hidden');
+                        errorView.classList.remove('hidden');
+                        errorView.querySelector('h2').textContent = 'Payment Canceled';
+                        errorView.querySelector('p').textContent = 'The payment was canceled or expired.';
+                    } else if (data.status === 'not_found') {
+                        loadingView.classList.add('hidden');
+                        timeoutView.classList.add('hidden');
+                        errorView.classList.remove('hidden');
+                    } else {
+                        // Still pending, keep polling indefinitely
+                        setTimeout(checkStatus, 2000);
+                    }
+                } catch (err) {
+                    console.error('Error checking status:', err);
+                    // Continue polling even on error
+                    setTimeout(checkStatus, 2000);
+                }
+            }
+
+            checkStatus();
+        }
+    </script>
+</body>
+</html>

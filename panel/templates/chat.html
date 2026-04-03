@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <title>Support Chat - Socks5.Website</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/assets/css/chat.css?v=1">
+</head>
+<body>
+    <div class="chat-layout">
+        <!-- Header -->
+        <header class="chat-header" role="banner">
+            <div class="header-content">
+                <a href="/d" class="header-back-btn" title="Back to Dashboard" aria-label="Back to Dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <div class="header-info">
+                    <h1 class="header-title">Support Chat</h1>
+                    <div class="connection-status" id="connection-status">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Messages Container -->
+        <div class="messages-container" role="main">
+            <div class="messages-scroll" id="chat-messages">
+                <div class="message system-message">
+                    <div class="message-content">
+                        Welcome to support! Describe your issue and we'll help you shortly.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <footer class="input-footer" role="contentinfo">
+            <div class="input-area">
+                <textarea 
+                    id="message-input" 
+                    class="message-textarea"
+                    placeholder="Type your message..." 
+                    rows="1"
+                    autocomplete="off"
+                    aria-label="Message input"
+                ></textarea>
+                <button 
+                    id="send-btn" 
+                    class="send-button" 
+                    title="Send Message (Enter)" 
+                    aria-label="Send Message"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/assets/js/chat.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+.platega-description {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-darker);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.form-group input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.payment-method-selector {
+    margin-bottom: 1rem;
+}
+
+.payment-method-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+}
+
+.payment-method-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.payment-method-option {
+    display: block;
+    cursor: pointer;
+}
+
+.payment-method-option input[type="radio"] {
+    display: none;
+}
+
+.payment-method-option .method-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: var(--bg-darker);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.payment-method-option input[type="radio"]:checked + .method-content {
+    border-color: var(--primary);
+    background: rgba(79, 70, 229, 0.08);
+}
+
+.payment-method-option:hover .method-content {
+    border-color: var(--primary-light);
+}
+
+.method-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    color: var(--primary-light);
+    flex-shrink: 0;
+}
+
+.method-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.method-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.method-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    min-height: 1.25rem;
+}

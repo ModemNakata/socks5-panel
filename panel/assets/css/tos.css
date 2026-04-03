@@ -1,0 +1,235 @@
+/* Terms of Service & Privacy Policy Page Styles */
+
+.tos-main {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.tos-container {
+    max-width: 900px;
+    width: 100%;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.tos-header {
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-card) 100%);
+    padding: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+}
+
+.tos-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tos-subtitle {
+    color: var(--text-muted-dark);
+    font-size: 0.875rem;
+}
+
+.tos-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    background: var(--bg-darker);
+}
+
+.tos-tab-button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-muted-dark);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tos-tab-button:hover {
+    color: var(--text-muted);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.tos-tab-button.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    background: rgba(99, 102, 241, 0.08);
+}
+
+.tos-tab-button svg {
+    flex-shrink: 0;
+}
+
+.tos-content {
+    padding: 2rem 2.5rem;
+}
+
+.tos-tab-pane {
+    display: none;
+}
+
+.tos-tab-pane.active {
+    display: block;
+}
+
+.tos-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.tos-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.tos-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tos-section h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 1.25rem;
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    border-radius: 2px;
+}
+
+.tos-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.tos-section p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.tos-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+}
+
+.tos-section ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.tos-section ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Strong emphasis styling */
+.tos-section strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tos-main {
+        padding: 1rem;
+    }
+
+    .tos-container {
+        border-radius: 8px;
+    }
+
+    .tos-header {
+        padding: 1.5rem;
+    }
+
+    .tos-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .tos-content {
+        padding: 1.5rem;
+    }
+
+    .tos-tabs {
+        flex-direction: column;
+    }
+
+    .tos-tab-button {
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 0;
+        padding: 1rem;
+    }
+
+    .tos-tab-button.active {
+        border-bottom-color: var(--border);
+        background: rgba(99, 102, 241, 0.1);
+    }
+
+    .tos-section h2 {
+        font-size: 1.1rem;
+    }
+
+    .tos-section p,
+    .tos-section ul li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .tos-tabs,
+    .dashboard-header,
+    .dashboard-footer {
+        display: none;
+    }
+
+    .tos-tab-pane {
+        display: block !important;
+    }
+
+    .tos-container {
+        border: none;
+        box-shadow: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+}

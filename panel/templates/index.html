@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socks5.Website - Anonymous Proxy Rentals</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/assets/css/style.css?v=6">
+    <link rel="stylesheet" href="/assets/css/platega.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-info">
+            <div class="info-item">
+                <span class="info-label">Balance</span>
+                <span class="info-value" id="balance">€{{ balance }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Rented Servers</span>
+                <span class="info-value" id="rented-servers">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Total Price</span>
+                <span class="info-value" id="total-price">€0.00</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Expires In</span>
+                <span class="info-value" id="expiry-time">--</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-support" id="support-btn" title="Contact Support">
+                    Support
+                </button>
+                <button class="btn btn-primary" id="topup-btn">Top Up Balance</button>
+                <button class="btn btn-secondary" id="settings-btn">Account Settings</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="servers-section">
+        <div class="section-header">
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="available">
+                        Available Servers
+                        <span class="tab-counter" id="available-counter">(0)</span>
+                    </button>
+                    <button class="tab-button" data-tab="proxies">
+                        My Proxies
+                        <span class="tab-counter" id="proxies-counter">(0)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="available-tab">
+                <div class="section-description">
+                    <span>Browse and rent proxy servers from our global network. Hourly billing</span>
+                </div>
+                <div class="table-container">
+                    <table class="servers-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th class="sortable" data-sort="country">
+                                    Country
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-vertical"><path d="M12 2v20"/><path d="m8 18 4 4 4-4"/><path d="m8 6 4-4 4 4"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-up"><path d="M8 6L12 2L16 6"/><path d="M12 2V22"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-down"><path d="M8 18L12 22L16 18"/><path d="M12 2V22"/></svg>
+                                </th>
+                                <th class="sortable" data-sort="ping" data-default="asc">
+                                    Ping
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-vertical"><path d="M12 2v20"/><path d="m8 18 4 4 4-4"/><path d="m8 6 4-4 4 4"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-up"><path d="M8 6L12 2L16 6"/><path d="M12 2V22"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-down"><path d="M8 18L12 22L16 18"/><path d="M12 2V22"/></svg>
+                                </th>
+                                <th class="sortable" data-sort="price" data-default="asc">
+                                    Price
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-vertical"><path d="M12 2v20"/><path d="m8 18 4 4 4-4"/><path d="m8 6 4-4 4 4"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-up"><path d="M8 6L12 2L16 6"/><path d="M12 2V22"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-down"><path d="M8 18L12 22L16 18"/><path d="M12 2V22"/></svg>
+                                </th>
+                                <th class="sortable" data-sort="speed">
+                                    Speed
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-vertical"><path d="M12 2v20"/><path d="m8 18 4 4 4-4"/><path d="m8 6 4-4 4 4"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-up"><path d="M8 6L12 2L16 6"/><path d="M12 2V22"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-down"><path d="M8 18L12 22L16 18"/><path d="M12 2V22"/></svg>
+                                </th>
+                                <th class="sortable" data-sort="slots">
+                                    Slots
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-vertical"><path d="M12 2v20"/><path d="m8 18 4 4 4-4"/><path d="m8 6 4-4 4 4"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-up"><path d="M8 6L12 2L16 6"/><path d="M12 2V22"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sort-icon move-down"><path d="M8 18L12 22L16 18"/><path d="M12 2V22"/></svg>
+                                </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servers-tbody">
+                            <tr class="loading-row">
+                                <td colspan="7">
+                                    <div class="spinner"></div>
+                                    <span>Loading servers...</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="proxies-tab">
+                <div class="proxies-header">
+                    <span>How to Use SOCKS5 Proxy</span>
+                    <button class="help-btn-small" id="proxies-help-btn">?</button>
+                </div>
+                <div id="rented-credentials"></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="rent-modal">
+        <div class="modal">
+            <h3>Rent Proxy Slots</h3>
+            <p id="rent-modal-server"></p>
+            <div class="slider-container">
+                <label for="slots-slider">Number of Proxies:</label>
+                <div class="slider-wrapper">
+                    <input type="range" id="slots-slider" class="slider" min="1" max="5" value="1">
+                    <span id="slots-value">1</span>
+                </div>
+            </div>
+            <p id="rent-modal-price"></p>
+            <button class="btn btn-primary" id="confirm-rent-btn" style="width: 100%; margin-top: 1rem;">Rent 1 Proxy</button>
+            <button class="modal-close" id="close-rent-modal" style="background: var(--bg-card-hover); color: var(--text);">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="help-modal">
+        <div class="modal">
+            <h3>How to Use SOCKS5 Proxy</h3>
+            <p>Each rented server provides unique credentials that you can use to connect through our SOCKS5 proxy.</p>
+            <p><strong>Username:</strong> Your unique username for authentication</p>
+            <p><strong>Password:</strong> Your unique password for authentication</p>
+            <p><strong>Example:</strong></p>
+            <code>socks5://username:password@ip:port</code>
+            <br><br>
+            <p>Use these credentials in any SOCKS5-compatible application (browsers, bots, software) to route traffic through your rented proxy server.</p>
+            <button class="modal-close" id="close-modal">Got it</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="credentials-modal">
+        <div class="modal credentials-modal">
+            <h3>Proxy Credentials</h3>
+            <p class="credentials-description">Your proxy credentials are ready. Copy individual fields or the full connection string.</p>
+            <div id="credentials-list" class="credentials-list"></div>
+            <button class="modal-close" id="close-credentials-modal">Close</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="account-settings-modal">
+        <div class="modal">
+            <h3>Account Settings</h3>
+
+            <div class="settings-section">
+                <h4>Your Secret Key</h4>
+                <p class="settings-description">Your secret key is used to access your account. Keep it safe!</p>
+                <div class="secret-key-container">
+                    <code id="secret-key-display" class="secret-key-code">Loading...</code>
+                    <button class="btn-copy-sk" id="copy-sk-btn" title="Copy to clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="copy-feedback" class="copy-feedback"></div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Login with Another Account</h4>
+                <p class="settings-description">Have another secret key? Login to switch accounts.</p>
+                <div class="login-form">
+                    <input type="text" id="login-sk-input" placeholder="Enter your secret key (SK_...)" autocomplete="off">
+                    <button class="btn btn-primary" id="login-sk-btn" style="width: 100%; margin-top: 0.75rem;">Login</button>
+                    <div id="login-error" class="login-error"></div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Logout</h4>
+                <p class="settings-description warning">⚠️ Warning: Logging out will clear your current session and generate a new secret key. Your current secret key will no longer be accessible from this device.</p>
+                <button class="btn btn-danger" id="logout-btn" style="width: 100%;">Logout & Generate New Key</button>
+            </div>
+
+            <button class="modal-close" id="close-settings-modal">Close</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="contact-modal">
+        <div class="modal">
+            <!-- <h3>Contact Us</h3> -->
+            <h3>Contact</h3>
+
+            <!-- <div class="contact-preferred"> -->
+                <!-- <div class="preferred-badge"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> -->
+                        <!-- <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/> -->
+                    <!-- </svg> -->
+                    <!-- <span>Fastest Response</span> -->
+                <!-- </div> -->
+                <!-- <p class="contact-description">For the quickest support, use our live chat. We typically respond within minutes during business hours.</p> -->
+                <!-- <button class="btn btn-primary contact-chat-btn" id="contact-chat-btn" style="width: 100%;"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"> -->
+                        <!-- <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/> -->
+                    <!-- </svg> -->
+                    <!-- Open Support Chat -->
+                <!-- </button> -->
+            <!-- </div> -->
+
+            <!-- <div class="contact-divider"> -->
+                <!-- <span>Other Ways to Reach Us</span> -->
+            <!-- </div> -->
+
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"/>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-label">Email</span>
+                        <a href="mailto:support@socks5.website" class="contact-link">support@socks5.website</a>
+                    </div>
+                </div>
+
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15.05 5A5 5 0 0 1 17 8.97M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-label">Telegram</span>
+                        <a href="https://socks5website.t.me" target="_blank" rel="noopener noreferrer" class="contact-link">@socks5website</a>
+                    </div>
+                </div>
+
+                <!-- <div class="contact-method"> -->
+                    <!-- <div class="contact-icon"> -->
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> -->
+                            <!-- <rect width="20" height="16" x="2" y="4" rx="2"/> -->
+                            <!-- <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/> -->
+                            <!-- <circle cx="12" cy="10" r="2"/> -->
+                        <!-- </svg> -->
+                    <!-- </div> -->
+                    <!-- <div class="contact-info"> -->
+                        <!-- <span class="contact-label">Discord</span> -->
+                        <!-- <a href="https://discord.gg/socks5website" target="_blank" rel="noopener noreferrer" class="contact-link">Join our server</a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="contact-method"> -->
+                    <!-- <div class="contact-icon"> -->
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> -->
+                            <!-- <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/> -->
+                        <!-- </svg> -->
+                    <!-- </div> -->
+                    <!-- <div class="contact-info"> -->
+                        <!-- <span class="contact-label">Twitter / X</span> -->
+                        <!-- <a href="https://twitter.com/socks5website" target="_blank" rel="noopener noreferrer" class="contact-link">@socks5website</a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="contact-method"> -->
+                    <!-- <div class="contact-icon"> -->
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> -->
+                            <!-- <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/> -->
+                            <!-- <rect width="4" height="12" x="2" y="9"/> -->
+                            <!-- <circle cx="4" cy="4" r="2"/> -->
+                        <!-- </svg> -->
+                    <!-- </div> -->
+                    <!-- <div class="contact-info"> -->
+                        <!-- <span class="contact-label">LinkedIn</span> -->
+                        <!-- <a href="https://linkedin.com/company/socks5website" target="_blank" rel="noopener noreferrer" class="contact-link">Follow us</a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="contact-method"> -->
+                    <!-- <div class="contact-icon"> -->
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> -->
+                            <!-- <circle cx="12" cy="12" r="10"/> -->
+                            <!-- <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/> -->
+                            <!-- <path d="M2 12h20"/> -->
+                        <!-- </svg> -->
+                    <!-- </div> -->
+                    <!-- <div class="contact-info"> -->
+                        <!-- <span class="contact-label">GitHub</span> -->
+                        <!-- <a href="https://github.com/socks5website" target="_blank" rel="noopener noreferrer" class="contact-link">View our code</a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+            <button class="modal-close" id="close-contact-modal">Close</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="topup-modal">
+        <div class="modal topup-modal">
+            <h3>Top Up Balance</h3>
+            <!-- <p class="topup-description">Choose your preferred payment method to add funds to your account.</p> -->
+
+            <div class="payment-methods">
+                <!-- Monero Section -->
+                <div class="payment-section">
+                    <div class="payment-section-header">
+                        <div class="payment-section-title">
+                            <h4>Cryptocurrency</h4>
+                            <span class="payment-badge">Recommended</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-options">
+                        <div class="payment-option" data-method="monero">
+                            <div class="option-header">
+                                <div class="option-icon coin-icon">
+                                    <img src="/assets/coins/monero_resized.png" alt="Monero">
+                                </div>
+                                <div class="option-info">
+                                    <span class="option-name">Monero (XMR)</span>
+                                    <span class="option-fee">No fees</span>
+                                </div>
+                            </div>
+                            <p class="option-description">Private, secure, and low-fee cryptocurrency. Best value for your money. Any amount.</p>
+                            <button class="btn btn-primary select-payment-btn" data-payment="monero">Select Monero</button>
+                        </div>
+
+                        <!-- <div class="payment-option" data-method="trocador"> -->
+                            <!-- <div class="option-header"> -->
+                                <!-- <div class="option-icon coin-icon"> -->
+                                    <!-- <img src="/assets/coins/trocador98x98.png" alt="Trocador"> -->
+                                <!-- </div> -->
+                                <!-- <div class="option-info"> -->
+                                    <!-- <span class="option-name">Trocador Anonpay</span> -->
+                                    <!-- <span class="option-fee">1-8% fee</span> -->
+                                <!-- </div> -->
+                            <!-- </div> -->
+                            <!-- <p class="option-description">Automatically converts other cryptocurrencies to Monero. Fee varies by provider and amount. Minimum amount to be paid: ~ 4 EUR</p> -->
+                            <!-- <button class="btn btn-primary select-payment-btn" data-payment="trocador">Select Trocador</button> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+                <!-- Russian Payment Methods Section -->
+                <div class="payment-section">
+                    <div class="payment-section-header">
+                        <div class="payment-section-title">
+                            <h4>СБП и карты РФ</h4>
+                            <!-- <span class="payment-badge warning">11-12% fee</span> -->
+                        </div>
+                    </div>
+
+                    <div class="payment-options">
+                        <div class="payment-option" data-method="platega">
+                            <div class="option-header">
+                                <div class="option-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                        <line x1="1" y1="10" x2="23" y2="10"/>
+                                    </svg>
+                                </div>
+                                <div class="option-info">
+                                    <span class="option-name">Platega.io</span>
+                                    <span class="option-fee high-fee">11-12% fee</span>
+                                </div>
+                            </div>
+                            <p class="option-description">Fiat payment gateway for Russian users. Supports СБП (Система быстрых платежей). Any amount from 1 RUB</p>
+                            <div class="payment-notice">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="16" x2="12" y2="12"/>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                </svg>
+                                <span>Перед использованием ознакомьтесь с документами: <a href="https://telegra.ph/Politika-konfidencialnosti-08-15-17" target="_blank" rel="noopener noreferrer">Политика конфиденциальности</a> и <a href="https://telegra.ph/Polzovatelskoe-soglashenie-08-15-10" target="_blank" rel="noopener noreferrer">Пользовательское соглашение</a></span>
+                            </div>
+                            <button class="btn btn-primary select-payment-btn" data-payment="platega">Select Platega</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Coupon Redemption Section -->
+            <div class="payment-section coupon-section">
+                <div class="payment-section-header">
+                    <div class="payment-section-title">
+                        <h4>Have a Coupon?</h4>
+                    </div>
+                </div>
+
+                <div class="coupon-redemption-form">
+                    <p class="option-description">Enter your coupon code to claim free credit. No payment required.</p>
+                    
+                    <div class="coupon-input-group">
+                        <input 
+                            type="text" 
+                            id="coupon-code-input" 
+                            class="coupon-input" 
+                            placeholder="Enter coupon code (e.g., PROMO2026)"
+                            autocomplete="off"
+                        >
+                        <button id="redeem-coupon-btn" class="btn btn-primary">Redeem</button>
+                    </div>
+                    
+                    <div id="coupon-message" class="coupon-message"></div>
+                </div>
+            </div>
+
+            <!-- <div class="topup-note"> -->
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> -->
+                    <!-- <circle cx="12" cy="12" r="10"/> -->
+                    <!-- <line x1="12" y1="16" x2="12" y2="12"/> -->
+                    <!-- <line x1="12" y1="8" x2="12.01" y2="8"/> -->
+                <!-- </svg> -->
+                <!-- <span>All payments are processed automatically.</span> -->
+            <!-- </div> -->
+
+            <button class="modal-close-payment" id="close-topup-modal">Close</button>
+        </div>
+    </div>
+
+    <footer class="dashboard-footer">
+        <div class="footer-row">
+            <div class="footer-left">
+                <a href="#" id="contact-footer-link">Contact</a>
+                <a target="_blank" href="/tos">Privacy &amp; Terms</a>
+            </div>
+            <!-- <div class="footer-stats"> -->
+                <!-- <span><span class="stat-value">50K+</span> Users</span> -->
+                <!-- <span><span class="stat-value">500+</span> Servers</span> -->
+                <!-- <span><span class="stat-value">99.9%</span> Uptime</span> -->
+            <!-- </div> -->
+            <div class="footer-right">
+                &copy; 2026 Socks5.Website
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/app.js?v=8"></script>
+    <script src="/assets/js/platega_payment.js"></script>
+</body>
+</html>

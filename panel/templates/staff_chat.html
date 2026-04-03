@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Panel - Chat</title>
+    <link rel="stylesheet" href="/assets/css/staff.css">
+    <style>
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+        .chat-messages .message {
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .chat-messages .message.user {
+            background: #e3f2fd;
+            margin-left: auto;
+        }
+        .chat-messages .message.staff {
+            background: #fff3e0;
+        }
+        .chat-messages .message-content {
+            margin-bottom: 4px;
+        }
+        .chat-messages .message-time {
+            font-size: 11px;
+            color: #888;
+        }
+        .reply-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .reply-form textarea {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .reply-form button {
+            padding: 8px 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .reply-form button:hover {
+            background: #0055aa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat with User</h1>
+        <a href="/staff/chats" class="back-link">← Back to Chats</a>
+        
+        <div class="user-id">User ID: <span id="user-id"></span></div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div>Loading...</div>
+        </div>
+        
+        <form class="reply-form" id="reply-form">
+            <textarea id="reply-input" placeholder="Type your reply..." rows="2"></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script src="/assets/js/staff_chat.js?v=1"></script>
+</body>
+</html>

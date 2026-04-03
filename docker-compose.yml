@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:18.2
+    container_name: postgres_pcg_np
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "127.0.0.1:5431:5432"
+    volumes:
+      - postgres_data_pcg:/var/lib/postgresql
+    restart: unless-stopped # always on produciton
+
+  app-runner: # production runner | nginx separated | is
+    image: gcr.io/distroless/cc-debian13
+    ports:
+      - "127.0.0.1:1337:1337"
+    env_file:
+      - .env
+    volumes:
+      - ./panel:/app
+      - ./assets:/app/assets
+    working_dir: /app
+    command: ./target/release/c2-dashboard # ./s5
+    restart: unless-stopped # always on production
+
+volumes:
+  postgres_data_pcg:
