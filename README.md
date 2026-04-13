@@ -1,8 +1,8 @@
 # Socks5.Website
 
-### !
-
 A modern, real-time web application for renting anonymous SOCKS5 proxy servers with automated hourly billing.
+
+*DISCLAIMER*: This README was written by an LLM and may not be fully up to date with the project. Some features may be missing from the documentation, and some documented features may not yet be implemented.
 
 ## How It Works
 
@@ -222,11 +222,5 @@ A: Your rental is paused; charges continue. You may release the rental or wait f
 
 **Last Updated**: March 2026  
 **Version**: 1.0.0  
-**License**: Proprietary
+**License**: MIT
 
-
-
-
-dev notes:
-
-add conversion rate to platega payment option: e.g. hardcoded 97.5 rub per 1 eur
